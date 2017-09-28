@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
@@ -27,7 +26,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -85,13 +83,10 @@ public class PessoaLayoutController implements Initializable {
         Pageable p = new PageRequest(0, size);
         Page<PessoaDto> pessoas = pessoaService.findAll(p);
         pagination.setPageCount(pessoas.getTotalPages());
-        pagination.setPageFactory(new Callback<Integer, Node>() {
-            @Override
-            public Node call(Integer param) {
-                Page<PessoaDto> pessoas = pessoaService.findAll(new PageRequest(param, size));
-                loadTableView(pessoas.getContent());
-                return new Label("");
-            }
+        pagination.setPageFactory((Integer param) -> {
+            Page<PessoaDto> pessoas1 = pessoaService.findAll(new PageRequest(param, size));
+            loadTableView(pessoas1.getContent());
+            return new Label("");
         });
     }
     
@@ -125,10 +120,7 @@ public class PessoaLayoutController implements Initializable {
         pessoaDto.setNome(textFieldNome.getText());
         pessoaDto.setNascimento(datePickerNascimento.getValue());
         pessoaService.save(pessoaDto);
-        tableViewPessoa.getSelectionModel().clearSelection();
-        textFieldNome.setText("");
-        datePickerNascimento.setValue(null);
-        updateLayout();
+        clear();
     }
     
     @FXML
@@ -141,9 +133,7 @@ public class PessoaLayoutController implements Initializable {
         pessoaDto.setNome(textFieldNome.getText());
         pessoaDto.setNascimento(datePickerNascimento.getValue());
         pessoaService.save(pessoaDto);
-        textFieldNome.setText("");
-        datePickerNascimento.setValue(null);
-        updateLayout();
+        clear();
     }
     
     @FXML
@@ -151,9 +141,7 @@ public class PessoaLayoutController implements Initializable {
         PessoaDto pessoaDto = tableViewPessoa.getSelectionModel().getSelectedItem();
         if (pessoaDto == null) return;
         pessoaService.delete(pessoaDto.getId());
-        textFieldNome.setText("");
-        datePickerNascimento.setValue(null);
-        updateLayout();
+        clear();
     }
     
     @FXML
