@@ -23,10 +23,10 @@
         </FlowPane>
         <FlowPane hgap="10.0" vgap="10.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#create" text="Create" />
-                <Button mnemonicParsing="false" onAction="#update" text="Update" />
-                <Button mnemonicParsing="false" onAction="#delete" text="Delete" />
-                <Button mnemonicParsing="false" onAction="#clear" text="Clear" />
+                <Button mnemonicParsing="false" onAction="#create" text="Salvar" />
+                <Button mnemonicParsing="false" onAction="#update" text="Alterar" />
+                <Button mnemonicParsing="false" onAction="#delete" text="Deletar" />
+                <Button mnemonicParsing="false" onAction="#clean" text="Limpar" />
             </children>
         </FlowPane>
         <TableView fx:id="tableViewPessoa" VBox.vgrow="ALWAYS">

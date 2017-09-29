@@ -120,7 +120,7 @@ public class PessoaLayoutController implements Initializable {
         pessoaDto.setNome(textFieldNome.getText());
         pessoaDto.setNascimento(datePickerNascimento.getValue());
         pessoaService.save(pessoaDto);
-        clear();
+        clean();
     }
     
     @FXML
@@ -133,7 +133,7 @@ public class PessoaLayoutController implements Initializable {
         pessoaDto.setNome(textFieldNome.getText());
         pessoaDto.setNascimento(datePickerNascimento.getValue());
         pessoaService.save(pessoaDto);
-        clear();
+        clean();
     }
     
     @FXML
@@ -141,11 +141,11 @@ public class PessoaLayoutController implements Initializable {
         PessoaDto pessoaDto = tableViewPessoa.getSelectionModel().getSelectedItem();
         if (pessoaDto == null) return;
         pessoaService.delete(pessoaDto.getId());
-        clear();
+        clean();
     }
     
     @FXML
-    public void clear() {
+    public void clean() {
         tableViewPessoa.getSelectionModel().clearSelection();
         textFieldNome.setText("");
         datePickerNascimento.setValue(null);

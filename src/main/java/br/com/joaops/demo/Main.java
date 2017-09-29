@@ -20,18 +20,20 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         this.context = SpringApplication.run(Main.class);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PessoaLayout.fxml"));
-        loader.setControllerFactory(context::getBean);
-        root = loader.load();
     }
     
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("CRUD Pessoa");
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/favicon.png")));
+    public void start(Stage stage) throws Exception {
+        stage.setTitle("CRUD Pessoa");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/favicon.png")));
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PessoaLayout.fxml"));
+        loader.setControllerFactory(context::getBean);
+        root = loader.load();
+        
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
     
     @Override
