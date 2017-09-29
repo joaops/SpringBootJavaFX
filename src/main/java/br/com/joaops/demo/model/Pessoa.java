@@ -2,12 +2,17 @@ package br.com.joaops.demo.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -27,14 +32,19 @@ public class Pessoa implements Serializable {
     @Column(name = "nascimento", nullable = false)
     private LocalDate nascimento;
     
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="id_pessoa")
+    private List<Contato> contatos;
+    
     public Pessoa() {
-        this(0L, "", LocalDate.MIN);
+        this(0L, "", LocalDate.MIN, new ArrayList<>());
     }
     
-    public Pessoa(Long id, String nome, LocalDate nascimento) {
+    public Pessoa(Long id, String nome, LocalDate nascimento, List<Contato> contatos) {
         this.id = id;
         this.nome = nome;
         this.nascimento = nascimento;
+        this.contatos = contatos;
     }
     
     public Long getId() {
@@ -59,6 +69,14 @@ public class Pessoa implements Serializable {
     
     public void setNascimento(LocalDate nascimento) {
         this.nascimento = nascimento;
+    }
+    
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+    
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
     }
     
     @Override
@@ -88,7 +106,7 @@ public class Pessoa implements Serializable {
     
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + '}';
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + ", contatos=" + contatos + '}';
     }
     
 }

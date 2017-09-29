@@ -2,6 +2,8 @@ package br.com.joaops.demo.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,15 +15,17 @@ public class PessoaDto implements Serializable {
     private Long id;
     private String nome;
     private LocalDate nascimento;
+    private List<ContatoDto> contatos;
     
     public PessoaDto() {
-        this(0L, "", LocalDate.MIN);
+        this(0L, "", LocalDate.MIN, new ArrayList<>());
     }
     
-    public PessoaDto(Long id, String nome, LocalDate nascimento) {
+    public PessoaDto(Long id, String nome, LocalDate nascimento, List<ContatoDto> contatos) {
         this.id = id;
         this.nome = nome;
         this.nascimento = nascimento;
+        this.contatos = contatos;
     }
     
     public Long getId() {
@@ -46,6 +50,14 @@ public class PessoaDto implements Serializable {
     
     public void setNascimento(LocalDate nascimento) {
         this.nascimento = nascimento;
+    }
+    
+    public List<ContatoDto> getContatos() {
+        return contatos;
+    }
+    
+    public void setContatos(List<ContatoDto> contatos) {
+        this.contatos = contatos;
     }
     
     @Override
@@ -75,7 +87,7 @@ public class PessoaDto implements Serializable {
     
     @Override
     public String toString() {
-        return "PessoaDto{" + "id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + '}';
+        return "PessoaDto{" + "id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + ", contatos=" + contatos + '}';
     }
     
 }
